@@ -1,0 +1,4477 @@
+/* PetSphere visual foundation — shared styles for existing React pages */
+
+body {
+  margin: 0;
+  font-family: 'DM Sans', 'Segoe UI', sans-serif;
+  background-color: var(--ps-page, #f5fbfa);
+}
+
+#root { min-height: 100vh; }
+
+.container {
+  width: min(100% - 40px, 1240px);
+  margin: 0 auto;
+  padding: 36px 0 56px;
+  text-align: left;
+}
+
+.container > h1 {
+  margin: 0 0 22px;
+  color: var(--ps-teal-900, #145b59);
+}
+
+.container > p {
+  color: var(--ps-muted, #718589);
+  font-size: 15px;
+  margin: 0 0 18px;
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  margin: 6px 8px 6px 0;
+  padding: 10px 18px;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  background: var(--ps-teal-700, #15958d);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 5px 12px rgba(21, 149, 141, .14);
+  transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+button:hover:not(:disabled) {
+  background: var(--ps-teal-800, #16736e);
+  box-shadow: 0 8px 18px rgba(21, 149, 141, .2);
+  transform: translateY(-1px);
+}
+
+button:active:not(:disabled) { transform: translateY(0); }
+button:disabled { opacity: .48; cursor: not-allowed; box-shadow: none; }
+
+input, select, textarea {
+  width: min(100%, 520px);
+  min-height: 44px;
+  margin: 7px 8px 7px 0;
+  padding: 11px 14px;
+  border: 1px solid var(--ps-line, #e2eeec);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ps-ink, #244044);
+  outline: none;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--ps-teal-600, #22aaa0);
+  box-shadow: 0 0 0 4px rgba(34, 170, 160, .12);
+}
+
+input::placeholder, textarea::placeholder { color: #9aabad; }
+
+.pet-card, .user-card {
+  display: inline-block;
+  vertical-align: top;
+  width: min(100%, 340px);
+  margin: 10px 14px 10px 0;
+  padding: 22px;
+  border: 1px solid var(--ps-line, #e2eeec);
+  border-radius: 20px;
+  background: var(--ps-surface, #fff);
+  box-shadow: var(--ps-shadow, 0 12px 32px rgba(29, 104, 99, .08));
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.pet-card:hover, .user-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px rgba(29, 104, 99, .12);
+}
+
+.pet-card h2, .user-card h2, .user-card .user-name {
+  margin: 0 0 12px;
+  color: var(--ps-teal-900, #145b59) !important;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  opacity: 1;
+  visibility: visible;
+}
+
+.pet-card p, .user-card p {
+  margin: 7px 0;
+  color: var(--ps-muted, #718589);
+  font-size: 14px;
+}
+
+.container > .pet-card:only-child { width: min(100%, 520px); }
+
+@media (max-width: 700px) {
+  .container { width: min(100% - 28px, 1240px); padding: 24px 0 40px; }
+  .pet-card, .user-card { display: block; width: 100%; margin: 12px 0; }
+  button { max-width: 100%; }
+  input, select, textarea { width: 100%; margin-right: 0; }
+}
+
+
+/* ==========================================
+   PETSPHERE - OWNER DASHBOARD
+========================================== */
+
+.ps-dashboard-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 252px minmax(0, 1fr);
+  background: #f6fbfa;
+  color: #244044;
+}
+
+.ps-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 28px 18px 20px;
+  background: #fff;
+  border-right: 1px solid #e5efed;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.ps-brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 3px 10px 38px;
+  color: #145b59;
+  font-family: 'Nunito', sans-serif;
+  font-size: 23px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.ps-brand-mark {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: #dff5f1;
+  display: grid;
+  place-items: center;
+  font-size: 23px;
+}
+
+.ps-brand small {
+  display: block;
+  margin-top: 6px;
+  color: #8aa09e;
+  font: 700 9px 'DM Sans', sans-serif;
+  letter-spacing: 1.5px;
+}
+
+.ps-sidebar-label,
+.ps-eyebrow {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.45px;
+  color: #8aa09e;
+}
+
+.ps-sidebar-label {
+  padding: 0 12px 12px;
+}
+
+.ps-nav-item,
+.ps-logout {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 13px;
+  margin: 3px 0;
+  padding: 12px 13px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: #647b7c;
+  box-shadow: none;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ps-nav-item span,
+.ps-logout span {
+  width: 22px;
+  text-align: center;
+  font-size: 17px;
+}
+
+.ps-nav-item:hover,
+.ps-nav-item.active {
+  background: #eaf7f4;
+  color: #167c75;
+  box-shadow: none;
+  transform: none;
+}
+
+.ps-sidebar-bottom {
+  margin-top: auto;
+}
+
+.ps-help-card {
+  padding: 16px;
+  border-radius: 17px;
+  background: linear-gradient(145deg, #e7f8f4, #f3fbf8);
+  margin: 12px 2px 18px;
+}
+
+.ps-help-icon {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.ps-help-card strong {
+  font: 800 14px 'Nunito', sans-serif;
+  color: #195e5a;
+}
+
+.ps-help-card p {
+  margin: 5px 0 0;
+  color: #78908e;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.ps-logout {
+  color: #9a7773;
+  margin-top: 4px;
+}
+
+.ps-logout:hover {
+  background: #fff1ee;
+  color: #b56d62;
+  box-shadow: none;
+  transform: none;
+}
+
+.ps-main {
+  width: min(100%, 1450px);
+  margin: 0 auto;
+  padding: 28px clamp(22px, 4vw, 58px) 24px;
+}
+
+.ps-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.ps-topbar h1 {
+  font-size: 25px;
+  margin: 4px 0 0;
+  color: #214b4a;
+}
+
+.ps-profile-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 13px 7px 7px;
+  border: 1px solid #e5efed;
+  border-radius: 15px;
+  background: #fff;
+}
+
+.ps-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #dff5f1;
+  color: #167c75;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+}
+
+.ps-profile-chip strong,
+.ps-profile-chip small {
+  display: block;
+}
+
+.ps-profile-chip strong {
+  font-size: 12px;
+}
+
+.ps-profile-chip small {
+  font-size: 10px;
+  color: #8aa09e;
+  margin-top: 2px;
+}
+
+.ps-welcome-banner {
+  position: relative;
+  min-height: 220px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 38px;
+  border-radius: 24px;
+  background: linear-gradient(110deg, #dff5f0 0%, #edf9f5 55%, #fff0e9 100%);
+  box-shadow: 0 12px 28px rgba(29, 104, 99, .06);
+}
+
+.ps-welcome-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 570px;
+}
+
+.ps-welcome-tag {
+  display: inline-block;
+  color: #368b81;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+}
+
+.ps-welcome-copy h2 {
+  margin: 9px 0 7px;
+  font-size: clamp(23px, 3vw, 31px);
+  color: #145b59;
+}
+
+.ps-welcome-copy h2 span {
+  font-size: 22px;
+}
+
+.ps-welcome-copy p {
+  max-width: 490px;
+  margin: 0 0 17px;
+  color: #678481;
+  font-size: 13px;
+}
+
+.ps-primary-action {
+  min-height: 39px;
+  margin: 0;
+  padding: 9px 16px;
+  border-radius: 11px;
+  background: #168d83;
+  font-size: 12px;
+}
+
+.ps-welcome-art {
+  position: relative;
+  width: 290px;
+  height: 175px;
+  flex: 0 0 290px;
+}
+
+.ps-sunburst {
+  position: absolute;
+  width: 155px;
+  height: 155px;
+  right: 50px;
+  top: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .55);
+}
+
+.ps-pet-emoji {
+  position: absolute;
+  right: 105px;
+  bottom: 13px;
+  font-size: 100px;
+  filter: drop-shadow(0 8px 5px rgba(30, 90, 80, .1));
+}
+
+.ps-cat-emoji {
+  right: 22px;
+  bottom: 8px;
+  font-size: 77px;
+}
+
+.ps-floating-heart {
+  position: absolute;
+  right: 27px;
+  top: 14px;
+  color: #f58d7b;
+  font-size: 25px;
+}
+
+.ps-floating-paw {
+  position: absolute;
+  right: 207px;
+  top: 12px;
+  font-size: 22px;
+  opacity: .75;
+}
+
+.ps-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+  margin: 19px 0 29px;
+}
+
+.ps-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 17px 19px;
+  border: 1px solid #e6efed;
+  border-radius: 17px;
+  background: #fff;
+  box-shadow: 0 7px 20px rgba(29, 104, 99, .035);
+}
+
+.ps-stat-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-size: 21px;
+}
+
+.ps-stat-icon.mint { background: #e2f6f1; }
+.ps-stat-icon.peach { background: #fff0e8; }
+.ps-stat-icon.lavender { background: #f0edff; }
+
+.ps-stat-card span,
+.ps-stat-card strong,
+.ps-stat-card small {
+  display: block;
+}
+
+.ps-stat-card span {
+  color: #819391;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ps-stat-card strong {
+  margin: 1px 0;
+  color: #225d59;
+  font: 900 23px 'Nunito', sans-serif;
+}
+
+.ps-stat-card small {
+  color: #9aabaa;
+  font-size: 10px;
+}
+
+.ps-section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 13px;
+}
+
+.ps-section-heading h2 {
+  margin: 3px 0 0;
+  color: #214b4a;
+  font-size: 20px;
+}
+
+.ps-section-note {
+  color: #91a3a0;
+  font-size: 11px;
+}
+
+.ps-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.ps-action-card {
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0;
+  padding: 17px 18px;
+  border: 1px solid #e5efed;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 7px 22px rgba(29, 104, 99, .035);
+  text-align: left;
+  color: #244044;
+  white-space: normal;
+}
+
+.ps-action-card:hover {
+  background: #fff;
+  border-color: #bfe4dc;
+  box-shadow: 0 12px 25px rgba(29, 104, 99, .09);
+  transform: translateY(-3px);
+}
+
+.ps-action-illustration {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  font-size: 23px;
+  margin-bottom: 10px;
+}
+
+.ps-action-illustration.add { background: #e4f6f0; }
+.ps-action-illustration.pets { background: #fff0e9; }
+.ps-action-illustration.appointment { background: #eaf1ff; }
+.ps-action-illustration.schedule { background: #fff6df; }
+.ps-action-illustration.records { background: #f1edff; }
+
+.ps-action-title {
+  font: 900 15px 'Nunito', sans-serif;
+  color: #205b57;
+}
+
+.ps-action-description {
+  margin-top: 4px;
+  color: #839592;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.ps-action-link {
+  margin-top: auto;
+  padding-top: 13px;
+  color: #16877e;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ps-action-link b {
+  padding-left: 5px;
+  font-size: 15px;
+}
+
+.ps-dashboard-footer {
+  padding: 25px 0 4px;
+  text-align: center;
+  color: #9aadaa;
+  font-size: 10px;
+}
+
+.ps-dashboard-footer span {
+  color: #f28c7b;
+}
+
+/* Responsive layout */
+@media (max-width: 1000px) {
+  .ps-dashboard-shell {
+    grid-template-columns: 210px minmax(0, 1fr);
+  }
+
+  .ps-welcome-art {
+    transform: scale(.82);
+    transform-origin: right center;
+    margin-left: -35px;
+  }
+
+  .ps-actions-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .ps-dashboard-shell {
+    display: block;
+  }
+
+  .ps-sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 14px 16px;
+    border-right: 0;
+    border-bottom: 1px solid #e5efed;
+    display: block;
+  }
+
+  .ps-brand {
+    padding: 0 5px 13px;
+  }
+
+  .ps-sidebar-label,
+  .ps-sidebar-bottom {
+    display: none;
+  }
+
+  .ps-nav-item {
+    display: inline-flex;
+    width: auto;
+    margin: 2px;
+    padding: 9px 10px;
+    font-size: 11px;
+  }
+
+  .ps-main {
+    padding: 20px 15px;
+  }
+
+  .ps-topbar h1 {
+    font-size: 21px;
+  }
+
+  .ps-profile-chip {
+    padding-right: 8px;
+  }
+
+  .ps-profile-chip > div:last-child {
+    display: none;
+  }
+
+  .ps-welcome-banner {
+    padding: 23px 20px;
+    min-height: 200px;
+  }
+
+  .ps-welcome-art {
+    position: absolute;
+    right: -82px;
+    bottom: -7px;
+    opacity: .28;
+    transform: scale(.9);
+  }
+
+  .ps-welcome-copy {
+    max-width: 100%;
+  }
+
+  .ps-welcome-copy p {
+    max-width: 95%;
+  }
+
+  .ps-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 9px;
+    margin: 13px 0 24px;
+  }
+
+  .ps-stat-card {
+    padding: 12px 15px;
+  }
+
+  .ps-section-heading {
+    display: block;
+  }
+
+  .ps-section-note {
+    display: block;
+    margin-top: 4px;
+  }
+
+  .ps-actions-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .ps-action-card {
+    min-height: 185px;
+    padding: 13px;
+  }
+
+  .ps-action-description {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 390px) {
+  .ps-actions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-nav-item {
+    font-size: 10px;
+    padding: 8px;
+  }
+
+  .ps-nav-item span {
+    width: 17px;
+  }
+}
+
+
+/* ==========================================
+   PETSPHERE - VETERINARIAN DASHBOARD
+========================================== */
+
+.ps-vet-dashboard .ps-vet-banner {
+  background: linear-gradient(110deg, #e3f3fb 0%, #edf8f8 55%, #f0edff 100%);
+}
+
+.ps-vet-dashboard .ps-welcome-tag {
+  color: #43869c;
+}
+
+.ps-vet-dashboard .ps-welcome-copy h2 {
+  color: #245c70;
+}
+
+.ps-vet-dashboard .ps-primary-action {
+  background: #287f99;
+}
+
+.ps-vet-art {
+  position: relative;
+  width: 260px;
+  height: 175px;
+  flex: 0 0 260px;
+  display: grid;
+  place-items: center;
+}
+
+.ps-vet-circle {
+  width: 145px;
+  height: 145px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, .7);
+  font-size: 82px;
+  filter: drop-shadow(0 10px 8px rgba(44, 105, 128, .12));
+}
+
+.ps-vet-paw {
+  position: absolute;
+  font-size: 24px;
+}
+
+.ps-vet-paw.paw-one {
+  top: 8px;
+  left: 28px;
+  color: #6b9daf;
+}
+
+.ps-vet-paw.paw-two {
+  top: 16px;
+  right: 20px;
+  color: #f18e91;
+}
+
+.ps-vet-paw.paw-three {
+  bottom: 8px;
+  right: 42px;
+  color: #6b9daf;
+  font-size: 27px;
+}
+
+.ps-vet-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+  margin: 19px 0 29px;
+}
+
+.ps-vet-info-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  padding: 18px 20px;
+  border: 1px solid #e5efed;
+  border-radius: 17px;
+  background: #fff;
+  box-shadow: 0 7px 20px rgba(29, 104, 99, .035);
+}
+
+.ps-vet-info-icon {
+  width: 47px;
+  height: 47px;
+  flex: 0 0 47px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #e7f4fa;
+  font-size: 23px;
+}
+
+.ps-vet-info-icon.specialty {
+  background: #efedff;
+}
+
+.ps-vet-info-card span,
+.ps-vet-info-card strong,
+.ps-vet-info-card small {
+  display: block;
+}
+
+.ps-vet-info-card span {
+  color: #819391;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ps-vet-info-card strong {
+  margin: 4px 0;
+  color: #245c70;
+  font: 900 15px 'Nunito', sans-serif;
+  overflow-wrap: anywhere;
+}
+
+.ps-vet-info-card small {
+  color: #9aabaa;
+  font-size: 10px;
+}
+
+.ps-vet-actions-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ps-vet-actions-grid .ps-action-card {
+  min-height: 190px;
+}
+
+@media (max-width: 700px) {
+  .ps-vet-art {
+    position: absolute;
+    right: -65px;
+    bottom: -7px;
+    opacity: .25;
+    transform: scale(.9);
+  }
+
+  .ps-vet-info-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 13px 0 24px;
+  }
+
+  .ps-vet-actions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ==========================================
+   PETSPHERE - ADMIN DASHBOARD
+========================================== */
+
+.ps-admin-dashboard .ps-admin-banner {
+  background: linear-gradient(110deg, #e8eafa 0%, #eff3fb 52%, #fdf0e9 100%);
+}
+
+.ps-admin-dashboard .ps-welcome-tag {
+  color: #7377ad;
+}
+
+.ps-admin-dashboard .ps-welcome-copy h2 {
+  color: #444d7c;
+}
+
+.ps-admin-dashboard .ps-primary-action {
+  background: #626caa;
+}
+
+.ps-admin-art {
+  position: relative;
+  width: 260px;
+  height: 175px;
+  flex: 0 0 260px;
+  display: grid;
+  place-items: center;
+}
+
+.ps-admin-circle {
+  width: 145px;
+  height: 145px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .7);
+  font-size: 78px;
+  filter: drop-shadow(0 10px 8px rgba(75, 82, 130, .1));
+}
+
+.ps-admin-symbol {
+  position: absolute;
+  font-size: 23px;
+}
+
+.ps-admin-symbol.symbol-one {
+  top: 12px;
+  left: 20px;
+}
+
+.ps-admin-symbol.symbol-two {
+  right: 16px;
+  top: 20px;
+  color: #777cb4;
+  font-size: 27px;
+}
+
+.ps-admin-symbol.symbol-three {
+  right: 34px;
+  bottom: 9px;
+  color: #ee958a;
+}
+
+.ps-admin-heading {
+  margin-top: 27px;
+}
+
+.ps-admin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 15px 0 29px;
+}
+
+.ps-admin-stat-card {
+  min-width: 0;
+  min-height: 105px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 16px;
+  border: 1px solid #e5efed;
+  border-radius: 17px;
+  background: #fff;
+  box-shadow: 0 7px 20px rgba(29, 104, 99, .035);
+}
+
+.ps-admin-stat-icon {
+  width: 45px;
+  height: 45px;
+  flex: 0 0 45px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  font-size: 21px;
+}
+
+.ps-admin-stat-icon.users { background: #e9edff; }
+.ps-admin-stat-icon.pets { background: #e4f6f0; }
+.ps-admin-stat-icon.vets { background: #e8f3fb; }
+.ps-admin-stat-icon.appointments { background: #fff2e6; }
+.ps-admin-stat-icon.records { background: #f1edff; }
+
+.ps-admin-stat-card span,
+.ps-admin-stat-card strong,
+.ps-admin-stat-card small {
+  display: block;
+}
+
+.ps-admin-stat-card span {
+  color: #819391;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ps-admin-stat-card strong {
+  margin: 2px 0;
+  color: #414c7d;
+  font: 900 24px 'Nunito', sans-serif;
+}
+
+.ps-admin-stat-card small {
+  color: #9aabaa;
+  font-size: 10px;
+}
+
+.ps-admin-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.ps-admin-actions-grid .ps-action-card {
+  min-height: 185px;
+}
+
+.ps-admin-dashboard .ps-action-title {
+  color: #414c7d;
+}
+
+.ps-admin-dashboard .ps-action-link {
+  color: #626caa;
+}
+
+.ps-admin-dashboard .ps-action-card:hover {
+  border-color: #ced1ec;
+}
+
+@media (max-width: 1000px) {
+  .ps-admin-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ps-admin-actions-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .ps-admin-art {
+    position: absolute;
+    right: -65px;
+    bottom: -7px;
+    opacity: .25;
+    transform: scale(.9);
+  }
+
+  .ps-admin-stats-grid,
+  .ps-admin-actions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-admin-stat-card {
+    min-height: 88px;
+  }
+}
+
+
+/* ==========================================
+   PETSPHERE - VIEW MY PETS PAGE
+========================================== */
+
+.ps-pets-page {
+  max-width: 1100px;
+  width: calc(100% - 36px);
+  margin: 35px auto;
+  padding: 30px;
+  border: 1px solid #e2eeec;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 12px 32px rgba(29, 104, 99, .07);
+}
+
+.ps-pets-page h1 {
+  color: #145b59;
+  font-family: 'Nunito', sans-serif;
+  font-size: 28px;
+  font-weight: 900;
+  margin-bottom: 25px;
+}
+
+.ps-pets-page .pet-card {
+  display: inline-block;
+  vertical-align: top;
+  width: calc(50% - 12px);
+  min-height: 190px;
+  margin: 0 8px 16px 0;
+  padding: 22px;
+  border: 1px solid #e2eeec;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 7px 20px rgba(29, 104, 99, .045);
+  text-align: left;
+  transition: .2s ease;
+}
+
+.ps-pets-page .pet-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(29, 104, 99, .09);
+}
+
+.ps-pets-page .pet-card h2 {
+  color: #176d67;
+  font-family: 'Nunito', sans-serif;
+  font-size: 20px;
+}
+
+.ps-pets-page .pet-card p {
+  color: #718589;
+  font-size: 13px;
+  margin: 8px 0;
+}
+
+@media (max-width: 650px) {
+  .ps-pets-page {
+    width: calc(100% - 24px);
+    padding: 18px;
+  }
+
+  .ps-pets-page .pet-card {
+    display: block;
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+
+/* ==========================================
+   PETSPHERE - BOOK APPOINTMENT PAGE
+========================================== */
+
+.ps-booking-page {
+  width: min(1100px, calc(100% - 36px));
+  margin: 35px auto;
+  color: #244044;
+}
+
+.ps-booking-header {
+  margin-bottom: 23px;
+}
+
+.ps-booking-header h1 {
+  margin: 8px 0;
+  color: #145b59;
+  font: 900 29px 'Nunito', sans-serif;
+}
+
+.ps-booking-header p {
+  color: #718589;
+  font-size: 13px;
+}
+
+.ps-booking-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(250px, .8fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.ps-booking-form-card,
+.ps-booking-aside {
+  padding: 27px;
+  border: 1px solid #e2eeec;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(29, 104, 99, .055);
+}
+
+.ps-booking-section-title {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 25px;
+}
+
+.ps-booking-step {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #dff5f1;
+  color: #167c75;
+  font-weight: 900;
+}
+
+.ps-booking-section-title h2 {
+  margin: 0;
+  color: #205b57;
+  font: 900 18px 'Nunito', sans-serif;
+}
+
+.ps-booking-section-title p {
+  margin: 3px 0 0;
+  color: #91a3a0;
+  font-size: 11px;
+}
+
+.ps-booking-field {
+  margin-bottom: 18px;
+}
+
+.ps-booking-field label {
+  display: block;
+  margin-bottom: 8px;
+  color: #426966;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.ps-booking-field input,
+.ps-booking-field select {
+  width: 100%;
+  min-height: 47px;
+  margin: 0;
+  padding: 11px 13px;
+  border: 1px solid #dcebe8;
+  border-radius: 11px;
+  background: #f8fcfb;
+  color: #244044;
+  font: 500 13px 'DM Sans', sans-serif;
+  box-shadow: none;
+  outline: none;
+}
+
+.ps-booking-field input:focus,
+.ps-booking-field select:focus {
+  border-color: #22aaa0;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(34, 170, 160, .11);
+}
+
+.ps-booking-date-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.ps-booking-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.ps-book-submit,
+.ps-book-back {
+  min-height: 43px;
+  margin: 0;
+  padding: 11px 17px;
+  border: 0;
+  border-radius: 11px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.ps-book-submit {
+  background: #168d83;
+  color: #fff;
+}
+
+.ps-book-submit:hover {
+  background: #126e68;
+}
+
+.ps-book-back {
+  background: #eaf6f3;
+  color: #28746e;
+  box-shadow: none;
+}
+
+.ps-book-back:hover {
+  background: #dff2ed;
+  box-shadow: none;
+}
+
+.ps-booking-message {
+  margin-top: 16px;
+  padding: 11px 13px;
+  border-radius: 10px;
+  background: #effaf8;
+  color: #28746e;
+  font-size: 12px;
+}
+
+.ps-booking-aside {
+  background: linear-gradient(155deg, #e4f7f1, #f4f9ff);
+}
+
+.ps-booking-illustration {
+  margin-bottom: 24px;
+  padding: 25px 10px;
+  border-radius: 17px;
+  background: rgba(255,255,255,.65);
+  text-align: center;
+  font-size: 45px;
+}
+
+.ps-booking-aside h2 {
+  margin: 9px 0;
+  color: #145b59;
+  font: 900 22px 'Nunito', sans-serif;
+}
+
+.ps-booking-aside > p {
+  color: #718b87;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.ps-booking-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-top: 19px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(80, 140, 130, .14);
+}
+
+.ps-booking-tip > span {
+  font-size: 20px;
+}
+
+.ps-booking-tip strong {
+  color: #286c65;
+  font-size: 12px;
+}
+
+.ps-booking-tip p {
+  margin: 4px 0 0;
+  color: #829995;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+@media (max-width: 750px) {
+  .ps-booking-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-booking-aside {
+    order: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .ps-booking-page {
+    width: calc(100% - 24px);
+    margin: 20px auto;
+  }
+
+  .ps-booking-form-card,
+  .ps-booking-aside {
+    padding: 19px;
+  }
+
+  .ps-booking-header h1 {
+    font-size: 23px;
+  }
+
+  .ps-booking-date-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .ps-booking-actions {
+    flex-direction: column;
+  }
+
+  .ps-book-submit,
+  .ps-book-back {
+    width: 100%;
+  }
+}
+
+
+/* ==========================================
+   PETSPHERE - OWNER APPOINTMENTS
+========================================== */
+
+.ps-appointments-page {
+  width: min(1100px, calc(100% - 36px));
+  margin: 35px auto;
+  color: #244044;
+}
+
+.ps-appointments-header {
+  margin-bottom: 22px;
+}
+
+.ps-appointments-header h1 {
+  margin: 8px 0;
+  color: #145b59;
+  font: 900 29px 'Nunito', sans-serif;
+}
+
+.ps-appointments-header p {
+  color: #718589;
+  font-size: 13px;
+}
+
+.ps-appointments-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 22px;
+  padding: 17px 20px;
+  border: 1px solid #e2eeec;
+  border-radius: 17px;
+  background: #fff;
+  box-shadow: 0 7px 20px rgba(29, 104, 99, .04);
+}
+
+.ps-appointments-summary > div {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.ps-appointments-summary-icon {
+  width: 45px;
+  height: 45px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: #e2f6f1;
+  font-size: 21px;
+}
+
+.ps-appointments-summary strong,
+.ps-appointments-summary small {
+  display: block;
+}
+
+.ps-appointments-summary strong {
+  color: #176d67;
+  font: 900 23px 'Nunito', sans-serif;
+}
+
+.ps-appointments-summary small {
+  color: #819391;
+  font-size: 11px;
+}
+
+.ps-appointment-book-button {
+  min-height: 42px;
+  margin: 0;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 11px;
+  background: #168d83;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.ps-appointment-book-button:hover {
+  background: #126e68;
+}
+
+.ps-appointments-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.ps-appointment-card {
+  min-width: 0;
+  padding: 21px;
+  border: 1px solid #e2eeec;
+  border-radius: 19px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(29, 104, 99, .045);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.ps-appointment-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(29, 104, 99, .09);
+}
+
+.ps-appointment-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.ps-appointment-number {
+  color: #8aa09e;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.ps-appointment-status {
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #edf3f1;
+  color: #617b76;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.ps-appointment-status.confirmed,
+.ps-appointment-status.approved,
+.ps-appointment-status.completed {
+  background: #e3f6eb;
+  color: #32815a;
+}
+
+.ps-appointment-status.pending,
+.ps-appointment-status.scheduled {
+  background: #fff5df;
+  color: #a77a2c;
+}
+
+.ps-appointment-status.cancelled,
+.ps-appointment-status.rejected {
+  background: #fff0ed;
+  color: #bd7166;
+}
+
+.ps-appointment-card h2 {
+  margin: 15px 0;
+  color: #205b57;
+  font: 900 19px 'Nunito', sans-serif;
+}
+
+.ps-appointment-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.ps-appointment-detail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 10px;
+  border-radius: 11px;
+  background: #f6fbfa;
+}
+
+.ps-appointment-detail > span {
+  font-size: 19px;
+}
+
+.ps-appointment-detail small,
+.ps-appointment-detail strong {
+  display: block;
+}
+
+.ps-appointment-detail small {
+  margin-bottom: 3px;
+  color: #91a3a0;
+  font-size: 10px;
+}
+
+.ps-appointment-detail strong {
+  overflow-wrap: anywhere;
+  color: #426966;
+  font-size: 11px;
+}
+
+.ps-appointment-reason {
+  margin-top: 16px;
+  padding-top: 13px;
+  border-top: 1px solid #edf3f1;
+}
+
+.ps-appointment-reason small {
+  color: #91a3a0;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.ps-appointment-reason p {
+  margin: 5px 0 0;
+  color: #52736f;
+  font-size: 12px;
+}
+
+.ps-appointments-empty {
+  padding: 48px 20px;
+  border: 1px dashed #cce4de;
+  border-radius: 20px;
+  background: #f8fcfb;
+  text-align: center;
+}
+
+.ps-empty-illustration {
+  margin-bottom: 14px;
+  font-size: 48px;
+}
+
+.ps-appointments-empty h2 {
+  color: #205b57;
+  font: 900 21px 'Nunito', sans-serif;
+}
+
+.ps-appointments-empty p {
+  max-width: 430px;
+  margin: 8px auto 19px;
+  color: #819391;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.ps-appointments-back {
+  min-height: 42px;
+  margin: 22px 0 0;
+  padding: 10px 17px;
+  border: 0;
+  border-radius: 11px;
+  background: #eaf6f3;
+  color: #28746e;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: none;
+}
+
+.ps-appointments-back:hover {
+  background: #dff2ed;
+  box-shadow: none;
+}
+
+@media (max-width: 700px) {
+  .ps-appointments-page {
+    width: calc(100% - 24px);
+    margin: 20px auto;
+  }
+
+  .ps-appointments-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-appointments-summary {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ps-appointment-book-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .ps-appointment-details {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-appointment-card {
+    padding: 16px;
+  }
+}
+
+
+/* ==========================================
+   PETSPHERE - OWNER MEDICAL RECORDS
+========================================== */
+
+.ps-medical-page {
+  width: min(1100px, calc(100% - 36px));
+  margin: 35px auto;
+  color: #244044;
+}
+
+.ps-medical-header {
+  margin-bottom: 22px;
+}
+
+.ps-medical-header h1 {
+  margin: 8px 0;
+  color: #145b59;
+  font: 900 29px 'Nunito', sans-serif;
+}
+
+.ps-medical-header p {
+  color: #718589;
+  font-size: 13px;
+}
+
+.ps-medical-summary {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 22px;
+  padding: 17px 20px;
+  border: 1px solid #e2eeec;
+  border-radius: 17px;
+  background: #fff;
+  box-shadow: 0 7px 20px rgba(29, 104, 99, .04);
+}
+
+.ps-medical-summary-icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: #f0edff;
+  font-size: 22px;
+}
+
+.ps-medical-summary strong,
+.ps-medical-summary span {
+  display: block;
+}
+
+.ps-medical-summary strong {
+  color: #176d67;
+  font: 900 23px 'Nunito', sans-serif;
+}
+
+.ps-medical-summary div:nth-child(2) span {
+  color: #819391;
+  font-size: 11px;
+}
+
+.ps-medical-summary-note {
+  margin-left: auto;
+  color: #91a3a0;
+  font-size: 11px;
+}
+
+.ps-medical-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.ps-medical-card {
+  min-width: 0;
+  padding: 21px;
+  border: 1px solid #e2eeec;
+  border-radius: 19px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(29, 104, 99, .045);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.ps-medical-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(29, 104, 99, .09);
+}
+
+.ps-medical-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #edf3f1;
+}
+
+.ps-medical-card-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: #eaf3ff;
+  font-size: 22px;
+}
+
+.ps-medical-card-header span {
+  color: #91a3a0;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.ps-medical-card-header h2 {
+  margin: 3px 0 0;
+  color: #205b57;
+  font: 900 17px 'Nunito', sans-serif;
+}
+
+.ps-medical-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 15px 0;
+}
+
+.ps-medical-meta > div {
+  padding: 10px;
+  border-radius: 10px;
+  background: #f6fbfa;
+}
+
+.ps-medical-meta small,
+.ps-medical-meta strong {
+  display: block;
+}
+
+.ps-medical-meta small {
+  margin-bottom: 4px;
+  color: #91a3a0;
+  font-size: 10px;
+}
+
+.ps-medical-meta strong {
+  color: #426966;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.ps-medical-information {
+  display: grid;
+  gap: 11px;
+}
+
+.ps-medical-info-item {
+  padding: 12px 13px;
+  border-left: 3px solid #a5dcd1;
+  border-radius: 0 10px 10px 0;
+  background: #f8fcfb;
+}
+
+.ps-medical-info-item span {
+  color: #28746e;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ps-medical-info-item p {
+  margin: 5px 0 0;
+  color: #718589;
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.ps-medical-card-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #edf3f1;
+  color: #9aadaa;
+  font-size: 10px;
+}
+
+.ps-medical-empty {
+  padding: 48px 20px;
+  border: 1px dashed #cce4de;
+  border-radius: 20px;
+  background: #f8fcfb;
+  text-align: center;
+}
+
+.ps-medical-empty-icon {
+  margin-bottom: 12px;
+  font-size: 45px;
+}
+
+.ps-medical-empty h2 {
+  color: #205b57;
+  font: 900 21px 'Nunito', sans-serif;
+}
+
+.ps-medical-empty p {
+  max-width: 440px;
+  margin: 8px auto 19px;
+  color: #819391;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.ps-medical-back {
+  min-height: 42px;
+  margin: 22px 0 0;
+  padding: 10px 17px;
+  border: 0;
+  border-radius: 11px;
+  background: #eaf6f3;
+  color: #28746e;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: none;
+}
+
+.ps-medical-back:hover {
+  background: #dff2ed;
+  box-shadow: none;
+}
+
+@media (max-width: 700px) {
+  .ps-medical-page {
+    width: calc(100% - 24px);
+    margin: 20px auto;
+  }
+
+  .ps-medical-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-medical-summary-note {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .ps-medical-card {
+    padding: 15px;
+  }
+
+  .ps-medical-meta {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ==========================================
+   PETSPHERE - VETERINARIAN APPOINTMENTS
+========================================== */
+
+.ps-vet-appointments-page {
+  width: min(1100px, calc(100% - 36px));
+  margin: 35px auto;
+  color: #244044;
+}
+
+.ps-vet-appointments-header {
+  margin-bottom: 22px;
+}
+
+.ps-vet-appointments-header h1 {
+  margin: 8px 0;
+  color: #145b59;
+  font: 900 29px 'Nunito', sans-serif;
+}
+
+.ps-vet-appointments-header p {
+  color: #718589;
+  font-size: 13px;
+}
+
+.ps-vet-appointment-summary {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 22px;
+  padding: 17px 20px;
+  border: 1px solid #e2eeec;
+  border-radius: 17px;
+  background: #fff;
+  box-shadow: 0 7px 20px rgba(29, 104, 99, .04);
+}
+
+.ps-vet-summary-icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: #e9edff;
+  font-size: 22px;
+}
+
+.ps-vet-appointment-summary strong,
+.ps-vet-appointment-summary span {
+  display: block;
+}
+
+.ps-vet-appointment-summary strong {
+  color: #176d67;
+  font: 900 23px 'Nunito', sans-serif;
+}
+
+.ps-vet-appointment-summary span {
+  color: #819391;
+  font-size: 11px;
+}
+
+.ps-vet-appointments-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.ps-vet-appointment-card {
+  min-width: 0;
+  padding: 21px;
+  border: 1px solid #e2eeec;
+  border-radius: 19px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(29, 104, 99, .045);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.ps-vet-appointment-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(29, 104, 99, .09);
+}
+
+.ps-vet-appointment-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.ps-vet-appointment-top > span:first-child {
+  color: #8aa09e;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.ps-vet-status {
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #edf3f1;
+  color: #617b76;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.ps-vet-status.confirmed,
+.ps-vet-status.approved,
+.ps-vet-status.completed {
+  background: #e3f6eb;
+  color: #32815a;
+}
+
+.ps-vet-status.pending,
+.ps-vet-status.scheduled {
+  background: #fff5df;
+  color: #a77a2c;
+}
+
+.ps-vet-status.cancelled,
+.ps-vet-status.rejected {
+  background: #fff0ed;
+  color: #bd7166;
+}
+
+.ps-vet-appointment-card h2 {
+  margin: 15px 0;
+  color: #205b57;
+  font: 900 19px 'Nunito', sans-serif;
+}
+
+.ps-vet-appointment-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+}
+
+.ps-vet-appointment-details > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 11px;
+  border-radius: 11px;
+  background: #f6fbfa;
+}
+
+.ps-vet-appointment-details > div > span {
+  font-size: 19px;
+}
+
+.ps-vet-appointment-details small,
+.ps-vet-appointment-details strong {
+  display: block;
+}
+
+.ps-vet-appointment-details small {
+  margin-bottom: 3px;
+  color: #91a3a0;
+  font-size: 10px;
+}
+
+.ps-vet-appointment-details strong {
+  color: #426966;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.ps-vet-appointment-reason {
+  margin-top: 15px;
+  padding: 12px;
+  border-left: 3px solid #a5dcd1;
+  border-radius: 0 10px 10px 0;
+  background: #f8fcfb;
+}
+
+.ps-vet-appointment-reason small {
+  color: #28746e;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.ps-vet-appointment-reason p {
+  margin: 5px 0 0;
+  color: #718589;
+  font-size: 12px;
+}
+
+.ps-vet-appointment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 17px;
+}
+
+.ps-vet-appointment-actions button {
+  min-height: 40px;
+  margin: 0;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 10px;
+  background: #168d83;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ps-vet-appointment-actions button:hover {
+  background: #126e68;
+}
+
+.ps-vet-appointments-empty {
+  padding: 45px 20px;
+  border: 1px dashed #cce4de;
+  border-radius: 20px;
+  background: #f8fcfb;
+  text-align: center;
+}
+
+.ps-vet-appointments-empty > div {
+  font-size: 45px;
+}
+
+.ps-vet-appointments-empty h2 {
+  color: #205b57;
+  font: 900 21px 'Nunito', sans-serif;
+}
+
+.ps-vet-appointments-empty p {
+  color: #819391;
+  font-size: 12px;
+}
+
+.ps-vet-appointments-back {
+  min-height: 42px;
+  margin: 22px 0 0;
+  padding: 10px 17px;
+  border: 0;
+  border-radius: 11px;
+  background: #eaf6f3;
+  color: #28746e;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: none;
+}
+
+.ps-vet-appointments-back:hover {
+  background: #dff2ed;
+  box-shadow: none;
+}
+
+@media (max-width: 700px) {
+  .ps-vet-appointments-page {
+    width: calc(100% - 24px);
+    margin: 20px auto;
+  }
+
+  .ps-vet-appointments-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .ps-vet-appointment-details {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-vet-appointment-card {
+    padding: 16px;
+  }
+
+  .ps-vet-appointment-actions {
+    flex-direction: column;
+  }
+
+  .ps-vet-appointment-actions button {
+    width: 100%;
+  }
+}
+
+
+/* ==========================================
+   PETSPHERE - VETERINARIAN MEDICAL RECORDS
+========================================== */
+
+.ps-vet-medical-page {
+  width: min(1100px, calc(100% - 36px));
+  margin: 35px auto;
+  color: #244044;
+}
+
+.ps-vet-medical-header {
+  margin-bottom: 22px;
+}
+
+.ps-vet-medical-header h1 {
+  margin: 8px 0;
+  color: #145b59;
+  font: 900 29px 'Nunito', sans-serif;
+}
+
+.ps-vet-medical-header p {
+  color: #718589;
+  font-size: 13px;
+}
+
+.ps-vet-medical-summary {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 22px;
+  padding: 17px 20px;
+  border: 1px solid #e2eeec;
+  border-radius: 17px;
+  background: #fff;
+  box-shadow: 0 7px 20px rgba(29, 104, 99, .04);
+}
+
+.ps-vet-medical-summary-icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: #e9edff;
+  font-size: 22px;
+}
+
+.ps-vet-medical-summary strong,
+.ps-vet-medical-summary span {
+  display: block;
+}
+
+.ps-vet-medical-summary strong {
+  color: #176d67;
+  font: 900 23px 'Nunito', sans-serif;
+}
+
+.ps-vet-medical-summary span {
+  color: #819391;
+  font-size: 11px;
+}
+
+.ps-vet-medical-summary > small {
+  margin-left: auto;
+  color: #91a3a0;
+  font-size: 11px;
+}
+
+.ps-vet-medical-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.ps-vet-medical-card {
+  min-width: 0;
+  padding: 21px;
+  border: 1px solid #e2eeec;
+  border-radius: 19px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(29, 104, 99, .045);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.ps-vet-medical-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(29, 104, 99, .09);
+}
+
+.ps-vet-medical-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #edf3f1;
+}
+
+.ps-vet-medical-icon {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: #e9edff;
+  font-size: 22px;
+}
+
+.ps-vet-medical-card-header > div:nth-child(2) {
+  min-width: 0;
+}
+
+.ps-vet-medical-card-header > div:nth-child(2) span {
+  color: #91a3a0;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.ps-vet-medical-card-header h2 {
+  margin: 3px 0 0;
+  color: #205b57;
+  font: 900 17px 'Nunito', sans-serif;
+}
+
+.ps-vet-record-badge {
+  margin-left: auto;
+  padding: 6px 9px;
+  border-radius: 20px;
+  background: #eaf6f3;
+  color: #28746e;
+  font-size: 9px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.ps-vet-medical-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 15px 0;
+}
+
+.ps-vet-medical-meta > div {
+  padding: 10px;
+  border-radius: 10px;
+  background: #f6fbfa;
+}
+
+.ps-vet-medical-meta small,
+.ps-vet-medical-meta strong {
+  display: block;
+}
+
+.ps-vet-medical-meta small {
+  margin-bottom: 4px;
+  color: #91a3a0;
+  font-size: 10px;
+}
+
+.ps-vet-medical-meta strong {
+  color: #426966;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.ps-vet-medical-content {
+  display: grid;
+  gap: 11px;
+}
+
+.ps-vet-medical-content > div {
+  padding: 12px 13px;
+  border-left: 3px solid #a5dcd1;
+  border-radius: 0 10px 10px 0;
+  background: #f8fcfb;
+}
+
+.ps-vet-medical-content span {
+  color: #28746e;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ps-vet-medical-content p {
+  margin: 5px 0 0;
+  color: #718589;
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.ps-vet-medical-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #edf3f1;
+  color: #9aadaa;
+  font-size: 10px;
+}
+
+.ps-vet-medical-empty {
+  padding: 45px 20px;
+  border: 1px dashed #cce4de;
+  border-radius: 20px;
+  background: #f8fcfb;
+  text-align: center;
+}
+
+.ps-vet-medical-empty > div {
+  font-size: 45px;
+}
+
+.ps-vet-medical-empty h2 {
+  color: #205b57;
+  font: 900 21px 'Nunito', sans-serif;
+}
+
+.ps-vet-medical-empty p {
+  color: #819391;
+  font-size: 12px;
+}
+
+.ps-vet-medical-back {
+  min-height: 42px;
+  margin: 22px 0 0;
+  padding: 10px 17px;
+  border: 0;
+  border-radius: 11px;
+  background: #eaf6f3;
+  color: #28746e;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: none;
+}
+
+.ps-vet-medical-back:hover {
+  background: #dff2ed;
+  box-shadow: none;
+}
+
+@media (max-width: 700px) {
+  .ps-vet-medical-page {
+    width: calc(100% - 24px);
+    margin: 20px auto;
+  }
+
+  .ps-vet-medical-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-vet-medical-summary > small {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .ps-vet-medical-card {
+    padding: 15px;
+  }
+
+  .ps-vet-medical-card-header {
+    flex-wrap: wrap;
+  }
+
+  .ps-vet-record-badge {
+    margin-left: 0;
+  }
+
+  .ps-vet-medical-meta {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ==========================================
+   PETSPHERE - ADMIN MANAGE USERS
+========================================== */
+
+.ps-admin-users-page {
+  width: min(1100px, calc(100% - 36px));
+  margin: 35px auto;
+  color: #244044;
+}
+
+.ps-admin-users-header {
+  margin-bottom: 22px;
+}
+
+.ps-admin-users-header h1 {
+  margin: 8px 0;
+  color: #414c7d;
+  font: 900 29px 'Nunito', sans-serif;
+}
+
+.ps-admin-users-header p {
+  color: #718589;
+  font-size: 13px;
+}
+
+.ps-admin-users-summary {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 20px;
+  padding: 17px 20px;
+  border: 1px solid #e5e8f4;
+  border-radius: 17px;
+  background: #fff;
+  box-shadow: 0 7px 20px rgba(65, 76, 125, .04);
+}
+
+.ps-admin-users-summary-icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: #e9edff;
+  font-size: 22px;
+}
+
+.ps-admin-users-summary strong,
+.ps-admin-users-summary span {
+  display: block;
+}
+
+.ps-admin-users-summary strong {
+  color: #414c7d;
+  font: 900 23px 'Nunito', sans-serif;
+}
+
+.ps-admin-users-summary span {
+  color: #819391;
+  font-size: 11px;
+}
+
+.ps-admin-users-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.ps-admin-user-card {
+  min-width: 0;
+  padding: 21px;
+  border: 1px solid #e5e8f4;
+  border-radius: 19px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(65, 76, 125, .045);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.ps-admin-user-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(65, 76, 125, .09);
+}
+
+.ps-admin-user-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #edf0f7;
+}
+
+.ps-admin-user-avatar {
+  width: 45px;
+  height: 45px;
+  flex: 0 0 45px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: #e9edff;
+  font-size: 21px;
+}
+
+.ps-admin-user-card-heading > div {
+  min-width: 0;
+}
+
+.ps-admin-user-card-heading small {
+  color: #9298b3;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.ps-admin-user-card-heading h2 {
+  margin: 3px 0 0;
+  color: #414c7d;
+  font: 900 17px 'Nunito', sans-serif;
+  overflow-wrap: anywhere;
+}
+
+.ps-admin-role {
+  margin-left: auto;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #edf0fb;
+  color: #626caa;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.ps-admin-role.admin {
+  background: #fff0e9;
+  color: #bd7962;
+}
+
+.ps-admin-role.vet,
+.ps-admin-role.veterinarian {
+  background: #e8f3fb;
+  color: #497da0;
+}
+
+.ps-admin-role.owner {
+  background: #e4f6ee;
+  color: #39836b;
+}
+
+.ps-admin-user-information {
+  display: grid;
+  gap: 11px;
+  padding: 15px 0;
+}
+
+.ps-admin-user-information > div {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #f8f9fd;
+}
+
+.ps-admin-user-information small,
+.ps-admin-user-information strong {
+  display: block;
+}
+
+.ps-admin-user-information small {
+  margin-bottom: 4px;
+  color: #9298b3;
+  font-size: 10px;
+}
+
+.ps-admin-user-information strong {
+  color: #505a7e;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.ps-admin-user-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 15px;
+}
+
+.ps-admin-user-actions button,
+.ps-admin-users-footer button {
+  min-height: 40px;
+  margin: 0;
+  padding: 10px 15px;
+  border: 0;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ps-admin-user-edit-button,
+.ps-admin-user-save {
+  background: #626caa;
+  color: #fff;
+}
+
+.ps-admin-user-edit-button:hover,
+.ps-admin-user-save:hover {
+  background: #4e588f;
+}
+
+.ps-admin-user-cancel {
+  background: #f0f1f8;
+  color: #626caa;
+  box-shadow: none;
+}
+
+.ps-admin-user-cancel:hover {
+  background: #e5e7f2;
+  box-shadow: none;
+}
+
+.ps-admin-user-save:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.ps-admin-user-fields {
+  display: grid;
+  gap: 13px;
+  margin-top: 17px;
+}
+
+.ps-admin-user-fields label {
+  color: #626caa;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ps-admin-user-fields input {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  margin: 7px 0 0;
+  padding: 10px 12px;
+  border: 1px solid #e0e4f2;
+  border-radius: 10px;
+  background: #fafbff;
+  color: #414c7d;
+  font-size: 12px;
+  box-shadow: none;
+}
+
+.ps-admin-user-fields input:focus {
+  border-color: #858dc5;
+  box-shadow: 0 0 0 3px rgba(98, 108, 170, .1);
+  outline: none;
+}
+
+.ps-admin-user-readonly {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 13px;
+  color: #8189a9;
+  font-size: 10px;
+}
+
+.ps-admin-users-empty {
+  grid-column: 1 / -1;
+  padding: 45px 20px;
+  border: 1px dashed #d4d9ec;
+  border-radius: 20px;
+  background: #fafbff;
+  text-align: center;
+}
+
+.ps-admin-users-empty > div {
+  font-size: 42px;
+}
+
+.ps-admin-users-empty h2 {
+  color: #414c7d;
+  font: 900 21px 'Nunito', sans-serif;
+}
+
+.ps-admin-users-empty p {
+  color: #8189a9;
+  font-size: 12px;
+}
+
+.ps-admin-users-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.ps-admin-users-refresh {
+  background: #626caa;
+  color: #fff;
+}
+
+.ps-admin-users-back {
+  background: #edf0fb;
+  color: #626caa;
+  box-shadow: none;
+}
+
+.ps-admin-users-message {
+  margin-top: 15px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  background: #f0f2fb;
+  color: #626caa;
+  font-size: 12px;
+}
+
+@media (max-width: 700px) {
+  .ps-admin-users-page {
+    width: calc(100% - 24px);
+    margin: 20px auto;
+  }
+
+  .ps-admin-users-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .ps-admin-user-card {
+    padding: 15px;
+  }
+
+  .ps-admin-user-card-heading {
+    flex-wrap: wrap;
+  }
+
+  .ps-admin-role {
+    margin-left: 0;
+  }
+}
+
+
+/* ==========================================
+   PETSPHERE - ADMIN MANAGE PETS
+========================================== */
+
+.ps-admin-pets-page {
+  width: min(1100px, calc(100% - 36px));
+  margin: 35px auto;
+  color: #244044;
+}
+
+.ps-admin-pets-header {
+  margin-bottom: 22px;
+}
+
+.ps-admin-pets-header h1 {
+  margin: 8px 0;
+  color: #414c7d;
+  font: 900 29px 'Nunito', sans-serif;
+}
+
+.ps-admin-pets-header p {
+  color: #718589;
+  font-size: 13px;
+}
+
+.ps-admin-pets-summary {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 20px;
+  padding: 17px 20px;
+  border: 1px solid #e5e8f4;
+  border-radius: 17px;
+  background: #fff;
+  box-shadow: 0 7px 20px rgba(65, 76, 125, .04);
+}
+
+.ps-admin-pets-summary-icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: #e9edff;
+  font-size: 22px;
+}
+
+.ps-admin-pets-summary strong,
+.ps-admin-pets-summary span {
+  display: block;
+}
+
+.ps-admin-pets-summary strong {
+  color: #414c7d;
+  font: 900 23px 'Nunito', sans-serif;
+}
+
+.ps-admin-pets-summary span {
+  color: #819391;
+  font-size: 11px;
+}
+
+.ps-admin-pets-message {
+  margin: 12px 0;
+  padding: 11px 14px;
+  border-radius: 10px;
+  background: #f0f2fb;
+  color: #626caa;
+  font-size: 12px;
+}
+
+.ps-admin-pets-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.ps-admin-pet-card {
+  min-width: 0;
+  padding: 21px;
+  border: 1px solid #e5e8f4;
+  border-radius: 19px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(65, 76, 125, .045);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.ps-admin-pet-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(65, 76, 125, .09);
+}
+
+.ps-admin-pet-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #edf0f7;
+}
+
+.ps-admin-pet-avatar {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #e9edff;
+  font-size: 24px;
+}
+
+.ps-admin-pet-heading small {
+  color: #9298b3;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.ps-admin-pet-heading h2 {
+  margin: 3px 0 0;
+  color: #414c7d;
+  font: 900 18px 'Nunito', sans-serif;
+  overflow-wrap: anywhere;
+}
+
+.ps-admin-pet-owner {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-top: 15px;
+  padding: 11px;
+  border-radius: 11px;
+  background: #f1f3fc;
+}
+
+.ps-admin-pet-owner > span {
+  font-size: 20px;
+}
+
+.ps-admin-pet-owner small,
+.ps-admin-pet-owner strong {
+  display: block;
+}
+
+.ps-admin-pet-owner small {
+  margin-bottom: 3px;
+  color: #9298b3;
+  font-size: 10px;
+}
+
+.ps-admin-pet-owner strong {
+  color: #505a7e;
+  font-size: 12px;
+}
+
+.ps-admin-pet-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 13px;
+}
+
+.ps-admin-pet-details > div {
+  min-width: 0;
+  padding: 11px;
+  border-radius: 10px;
+  background: #f8f9fd;
+}
+
+.ps-admin-pet-details small,
+.ps-admin-pet-details strong {
+  display: block;
+}
+
+.ps-admin-pet-details small {
+  margin-bottom: 4px;
+  color: #9298b3;
+  font-size: 10px;
+}
+
+.ps-admin-pet-details strong {
+  color: #505a7e;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.ps-admin-pet-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 17px;
+}
+
+.ps-admin-pet-actions button,
+.ps-admin-pets-footer button {
+  min-height: 40px;
+  margin: 0;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ps-admin-pet-edit-button,
+.ps-admin-pet-save {
+  background: #626caa;
+  color: #fff;
+}
+
+.ps-admin-pet-edit-button:hover,
+.ps-admin-pet-save:hover {
+  background: #4e588f;
+}
+
+.ps-admin-pet-delete {
+  background: #fff0ed;
+  color: #bd7166;
+  box-shadow: none;
+}
+
+.ps-admin-pet-delete:hover {
+  background: #ffe4df;
+  box-shadow: none;
+}
+
+.ps-admin-pet-cancel {
+  background: #f0f1f8;
+  color: #626caa;
+  box-shadow: none;
+}
+
+.ps-admin-pet-cancel:hover {
+  background: #e5e7f2;
+  box-shadow: none;
+}
+
+.ps-admin-pet-save:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.ps-admin-pet-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.ps-admin-pet-fields label {
+  color: #626caa;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ps-admin-pet-fields input {
+  display: block;
+  width: 100%;
+  min-height: 42px;
+  margin: 7px 0 0;
+  padding: 10px;
+  border: 1px solid #e0e4f2;
+  border-radius: 10px;
+  background: #fafbff;
+  color: #414c7d;
+  font-size: 12px;
+  box-shadow: none;
+}
+
+.ps-admin-pet-fields input:focus {
+  border-color: #858dc5;
+  box-shadow: 0 0 0 3px rgba(98, 108, 170, .1);
+  outline: none;
+}
+
+.ps-admin-pet-empty,
+.ps-admin-pets-empty {
+  grid-column: 1 / -1;
+  padding: 45px 20px;
+  border: 1px dashed #d4d9ec;
+  border-radius: 20px;
+  background: #fafbff;
+  text-align: center;
+}
+
+.ps-admin-pets-empty > div {
+  font-size: 42px;
+}
+
+.ps-admin-pets-empty h2 {
+  color: #414c7d;
+  font: 900 21px 'Nunito', sans-serif;
+}
+
+.ps-admin-pets-empty p {
+  color: #8189a9;
+  font-size: 12px;
+}
+
+.ps-admin-pets-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.ps-admin-pets-refresh {
+  background: #626caa;
+  color: #fff;
+}
+
+.ps-admin-pets-back {
+  background: #edf0fb;
+  color: #626caa;
+  box-shadow: none;
+}
+
+@media (max-width: 700px) {
+  .ps-admin-pets-page {
+    width: calc(100% - 24px);
+    margin: 20px auto;
+  }
+
+  .ps-admin-pets-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .ps-admin-pet-card {
+    padding: 15px;
+  }
+
+  .ps-admin-pet-fields,
+  .ps-admin-pet-details {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-admin-pet-actions {
+    flex-direction: column;
+  }
+
+  .ps-admin-pet-actions button {
+    width: 100%;
+  }
+}
+
+
+/* =========================================
+   PETSPHERE - ADMIN MANAGE VETERINARIANS
+========================================= */
+
+.ps-admin-vets {
+  padding-top: 28px;
+  padding-bottom: 40px;
+}
+
+.ps-admin-vets-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 26px;
+}
+
+.ps-admin-vets-eyebrow {
+  color: var(--ps-teal-700);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.ps-admin-vets-header h1 {
+  color: var(--ps-ink);
+  font-size: 30px;
+  margin: 8px 0;
+}
+
+.ps-admin-vets-header p {
+  color: var(--ps-muted);
+  margin: 0;
+}
+
+.ps-admin-vets-icon {
+  width: 65px;
+  height: 65px;
+  border-radius: 20px;
+  background: var(--ps-teal-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+
+.ps-admin-vets-summary {
+  margin-bottom: 25px;
+}
+
+.ps-admin-vets-summary > div {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: fit-content;
+  min-width: 230px;
+  padding: 17px 22px;
+  background: white;
+  border: 1px solid var(--ps-line);
+  border-radius: 16px;
+  box-shadow: var(--ps-shadow);
+}
+
+.ps-admin-vets-summary-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 14px;
+  background: var(--ps-teal-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23px;
+}
+
+.ps-admin-vets-summary strong,
+.ps-admin-vets-summary span:not(.ps-admin-vets-summary-icon) {
+  display: block;
+}
+
+.ps-admin-vets-summary strong {
+  font-size: 24px;
+  color: var(--ps-teal-800);
+}
+
+.ps-admin-vets-summary div div span {
+  color: var(--ps-muted);
+  font-size: 12px;
+}
+
+.ps-admin-vets-message {
+  padding: 13px 16px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  background: var(--ps-teal-50);
+  color: var(--ps-teal-900);
+  border: 1px solid var(--ps-teal-100);
+}
+
+.ps-admin-vets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.ps-admin-vet-card {
+  background: white;
+  border: 1px solid var(--ps-line);
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: var(--ps-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ps-admin-vet-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 35px rgba(29, 104, 99, 0.12);
+}
+
+.ps-admin-vet-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 17px;
+}
+
+.ps-admin-vet-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: var(--ps-teal-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+}
+
+.ps-admin-vet-badge {
+  background: var(--ps-teal-100);
+  color: var(--ps-teal-900);
+  border-radius: 20px;
+  padding: 7px 12px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ps-admin-vet-details h2,
+.ps-admin-vet-edit h2 {
+  color: var(--ps-ink);
+  font-size: 20px;
+  margin: 0 0 6px;
+}
+
+.ps-admin-vet-specialization {
+  color: var(--ps-teal-700);
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0 0 20px;
+}
+
+.ps-admin-vet-info {
+  border-top: 1px solid var(--ps-line);
+  padding-top: 14px;
+  display: grid;
+  gap: 13px;
+}
+
+.ps-admin-vet-info div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.ps-admin-vet-info span {
+  color: var(--ps-muted);
+  font-size: 11px;
+}
+
+.ps-admin-vet-info strong {
+  color: var(--ps-ink);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.ps-admin-vet-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.ps-admin-vet-actions button,
+.ps-admin-vets-footer button {
+  border: none;
+  border-radius: 11px;
+  padding: 11px 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.ps-admin-vet-actions button:hover,
+.ps-admin-vets-footer button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.ps-admin-vet-save {
+  background: var(--ps-teal-700);
+  color: white;
+  flex: 1;
+}
+
+.ps-admin-vet-cancel {
+  background: #edf3f2;
+  color: var(--ps-ink);
+}
+
+.ps-admin-vet-delete {
+  background: #fff0ed;
+  color: #c64d40;
+  flex: 1;
+}
+
+.ps-admin-vet-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.ps-admin-vet-edit h2 {
+  margin-bottom: 0;
+}
+
+.ps-admin-vet-id {
+  color: var(--ps-muted);
+  font-size: 12px;
+  margin: 0 0 8px;
+}
+
+.ps-admin-vet-edit label {
+  color: var(--ps-ink);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ps-admin-vet-edit input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 12px;
+  border: 1px solid var(--ps-line);
+  border-radius: 10px;
+  outline: none;
+  color: var(--ps-ink);
+  background: #fbfefd;
+}
+
+.ps-admin-vet-edit input:focus {
+  border-color: var(--ps-teal-600);
+}
+
+.ps-admin-vet-readonly {
+  padding: 11px 12px;
+  border-radius: 10px;
+  background: var(--ps-teal-50);
+  color: var(--ps-ink);
+  font-size: 13px;
+}
+
+.ps-admin-vet-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ps-admin-vets-empty {
+  background: white;
+  border: 1px dashed var(--ps-teal-600);
+  border-radius: 18px;
+  text-align: center;
+  padding: 45px 20px;
+}
+
+.ps-admin-vets-empty div {
+  font-size: 38px;
+}
+
+.ps-admin-vets-empty h2 {
+  color: var(--ps-ink);
+}
+
+.ps-admin-vets-empty p {
+  color: var(--ps-muted);
+}
+
+.ps-admin-vets-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.ps-admin-vets-refresh {
+  background: var(--ps-teal-700);
+  color: white;
+}
+
+.ps-admin-vets-back {
+  background: white;
+  color: var(--ps-ink);
+  border: 1px solid var(--ps-line) !important;
+}
+
+@media (max-width: 600px) {
+  .ps-admin-vets-header h1 {
+    font-size: 24px;
+  }
+
+  .ps-admin-vets-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-admin-vets-footer {
+    flex-direction: column;
+  }
+
+  .ps-admin-vets-footer button {
+    width: 100%;
+  }
+}
+
+
+/* =========================================
+   PETSPHERE - ADMIN APPOINTMENTS
+========================================= */
+
+.ps-admin-appointments {
+  padding-top: 28px;
+  padding-bottom: 40px;
+}
+
+.ps-admin-appt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 26px;
+}
+
+.ps-admin-appt-eyebrow {
+  color: var(--ps-teal-700);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.ps-admin-appt-header h1 {
+  color: var(--ps-ink);
+  font-size: 30px;
+  margin: 8px 0;
+}
+
+.ps-admin-appt-header p {
+  color: var(--ps-muted);
+  margin: 0;
+}
+
+.ps-admin-appt-icon {
+  width: 65px;
+  height: 65px;
+  border-radius: 20px;
+  background: var(--ps-teal-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+
+.ps-admin-appt-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.ps-admin-appt-stat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 17px;
+  background: white;
+  border: 1px solid var(--ps-line);
+  border-radius: 16px;
+  box-shadow: var(--ps-shadow);
+}
+
+.ps-admin-appt-stat > span {
+  font-size: 23px;
+}
+
+.ps-admin-appt-stat strong,
+.ps-admin-appt-stat small {
+  display: block;
+}
+
+.ps-admin-appt-stat strong {
+  color: var(--ps-ink);
+  font-size: 23px;
+}
+
+.ps-admin-appt-stat small {
+  color: var(--ps-muted);
+  font-size: 11px;
+}
+
+.ps-admin-appt-message {
+  padding: 13px 16px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  background: var(--ps-teal-50);
+  color: var(--ps-teal-900);
+  border: 1px solid var(--ps-teal-100);
+}
+
+.ps-admin-appt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 20px;
+}
+
+.ps-admin-appt-card {
+  background: white;
+  border: 1px solid var(--ps-line);
+  border-radius: 20px;
+  padding: 21px;
+  box-shadow: var(--ps-shadow);
+  transition: transform 0.2s ease;
+}
+
+.ps-admin-appt-card:hover {
+  transform: translateY(-3px);
+}
+
+.ps-admin-appt-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.ps-admin-appt-card-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: var(--ps-teal-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23px;
+}
+
+.ps-admin-appt-card-header > div:nth-child(2) {
+  flex: 1;
+}
+
+.ps-admin-appt-card-header > div:nth-child(2) span {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--ps-muted);
+  font-weight: 800;
+}
+
+.ps-admin-appt-card-header h2 {
+  color: var(--ps-ink);
+  font-size: 19px;
+  margin: 3px 0 0;
+}
+
+.ps-admin-appt-status {
+  border-radius: 20px;
+  padding: 7px 10px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.ps-admin-appt-status.confirmed {
+  background: #e5f7ec;
+  color: #237c4b;
+}
+
+.ps-admin-appt-status.pending {
+  background: #fff5d9;
+  color: #9b710e;
+}
+
+.ps-admin-appt-status.rejected {
+  background: #ffebe8;
+  color: #c64d40;
+}
+
+.ps-admin-appt-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  padding: 16px 0;
+  border-top: 1px solid var(--ps-line);
+  border-bottom: 1px solid var(--ps-line);
+}
+
+.ps-admin-appt-details div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.ps-admin-appt-details span,
+.ps-admin-appt-reason span {
+  color: var(--ps-muted);
+  font-size: 11px;
+}
+
+.ps-admin-appt-details strong {
+  color: var(--ps-ink);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.ps-admin-appt-reason {
+  padding: 15px 0 3px;
+}
+
+.ps-admin-appt-reason p {
+  color: var(--ps-ink);
+  font-size: 13px;
+  margin: 7px 0;
+  overflow-wrap: anywhere;
+}
+
+.ps-admin-appt-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 17px;
+}
+
+.ps-admin-appt-actions button,
+.ps-admin-appt-footer button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.ps-admin-appt-actions button:hover,
+.ps-admin-appt-footer button:hover {
+  opacity: 0.85;
+}
+
+.ps-admin-appt-confirm {
+  background: #e5f7ec;
+  color: #237c4b;
+  flex: 1;
+}
+
+.ps-admin-appt-reject {
+  background: #ffebe8;
+  color: #c64d40;
+  flex: 1;
+}
+
+.ps-admin-appt-pending {
+  background: #fff5d9;
+  color: #9b710e;
+  flex: 1;
+}
+
+.ps-admin-appt-actions button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ps-admin-appt-empty {
+  background: white;
+  border: 1px dashed var(--ps-teal-600);
+  border-radius: 18px;
+  text-align: center;
+  padding: 45px 20px;
+}
+
+.ps-admin-appt-empty div {
+  font-size: 38px;
+}
+
+.ps-admin-appt-empty h2 {
+  color: var(--ps-ink);
+}
+
+.ps-admin-appt-empty p {
+  color: var(--ps-muted);
+}
+
+.ps-admin-appt-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.ps-admin-appt-refresh {
+  background: var(--ps-teal-700);
+  color: white;
+}
+
+.ps-admin-appt-back {
+  background: white;
+  color: var(--ps-ink);
+  border: 1px solid var(--ps-line) !important;
+}
+
+@media (max-width: 850px) {
+  .ps-admin-appt-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .ps-admin-appt-header h1 {
+    font-size: 24px;
+  }
+
+  .ps-admin-appt-summary {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ps-admin-appt-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-admin-appt-footer {
+    flex-direction: column;
+  }
+
+  .ps-admin-appt-footer button {
+    width: 100%;
+  }
+}
+
+
+/* =========================================
+   PETSPHERE - ADMIN MEDICAL RECORDS
+========================================= */
+
+.ps-admin-records {
+  padding-top: 28px;
+  padding-bottom: 40px;
+}
+
+.ps-admin-records-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 26px;
+}
+
+.ps-admin-records-eyebrow {
+  color: var(--ps-teal-700);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.ps-admin-records-header h1 {
+  color: var(--ps-ink);
+  font-size: 30px;
+  margin: 8px 0;
+}
+
+.ps-admin-records-header p {
+  color: var(--ps-muted);
+  margin: 0;
+}
+
+.ps-admin-records-icon {
+  width: 65px;
+  height: 65px;
+  border-radius: 20px;
+  background: var(--ps-teal-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+
+.ps-admin-records-summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: fit-content;
+  min-width: 220px;
+  padding: 17px 22px;
+  margin-bottom: 25px;
+  background: white;
+  border: 1px solid var(--ps-line);
+  border-radius: 16px;
+  box-shadow: var(--ps-shadow);
+}
+
+.ps-admin-records-summary > span {
+  font-size: 26px;
+}
+
+.ps-admin-records-summary strong,
+.ps-admin-records-summary small {
+  display: block;
+}
+
+.ps-admin-records-summary strong {
+  color: var(--ps-teal-800);
+  font-size: 24px;
+}
+
+.ps-admin-records-summary small {
+  color: var(--ps-muted);
+  font-size: 12px;
+}
+
+.ps-admin-records-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 20px;
+}
+
+.ps-admin-record-card {
+  background: white;
+  border: 1px solid var(--ps-line);
+  border-radius: 20px;
+  padding: 21px;
+  box-shadow: var(--ps-shadow);
+  transition: transform 0.2s ease;
+}
+
+.ps-admin-record-card:hover {
+  transform: translateY(-3px);
+}
+
+.ps-admin-record-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.ps-admin-record-card-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: var(--ps-teal-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23px;
+}
+
+.ps-admin-record-card-header > div:nth-child(2) {
+  flex: 1;
+}
+
+.ps-admin-record-card-header > div:nth-child(2) span {
+  color: var(--ps-muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.ps-admin-record-card-header h2 {
+  color: var(--ps-ink);
+  font-size: 19px;
+  margin: 3px 0 0;
+}
+
+.ps-admin-record-badge {
+  background: var(--ps-teal-100);
+  color: var(--ps-teal-900);
+  padding: 7px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.ps-admin-record-identifiers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding: 15px 0;
+  border-top: 1px solid var(--ps-line);
+  border-bottom: 1px solid var(--ps-line);
+}
+
+.ps-admin-record-identifiers div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.ps-admin-record-identifiers div:last-child {
+  grid-column: 1 / -1;
+}
+
+.ps-admin-record-identifiers span,
+.ps-admin-record-content span {
+  color: var(--ps-muted);
+  font-size: 11px;
+}
+
+.ps-admin-record-identifiers strong {
+  color: var(--ps-ink);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.ps-admin-record-content {
+  display: grid;
+  gap: 15px;
+  padding-top: 16px;
+}
+
+.ps-admin-record-content div {
+  background: var(--ps-teal-50);
+  padding: 12px;
+  border-radius: 11px;
+}
+
+.ps-admin-record-content p {
+  color: var(--ps-ink);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 6px 0 0;
+  overflow-wrap: anywhere;
+}
+
+.ps-admin-records-empty {
+  background: white;
+  border: 1px dashed var(--ps-teal-600);
+  border-radius: 18px;
+  text-align: center;
+  padding: 45px 20px;
+}
+
+.ps-admin-records-empty div {
+  font-size: 38px;
+}
+
+.ps-admin-records-empty h2 {
+  color: var(--ps-ink);
+}
+
+.ps-admin-records-empty p {
+  color: var(--ps-muted);
+}
+
+.ps-admin-records-footer {
+  margin-top: 28px;
+}
+
+.ps-admin-records-footer button {
+  border: 1px solid var(--ps-line);
+  background: white;
+  color: var(--ps-ink);
+  border-radius: 11px;
+  padding: 12px 17px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ps-admin-records-footer button:hover {
+  background: var(--ps-teal-50);
+}
+
+@media (max-width: 600px) {
+  .ps-admin-records-header h1 {
+    font-size: 24px;
+  }
+
+  .ps-admin-records-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================
+   PETSPHERE WELCOME PAGE - LAYOUT FIX
+========================================= */
+
+.ps-home-page {
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.ps-home-page * {
+  box-sizing: border-box;
+}
+
+.ps-home-page .ps-home-header {
+  width: min(1120px, calc(100% - 40px));
+}
+
+.ps-home-page .ps-home-main {
+  width: min(900px, calc(100% - 40px));
+}
+
+.ps-home-page .ps-home-hero h1 {
+  display: block;
+  text-align: center;
+  line-height: 1.15;
+}
+
+.ps-home-page .ps-home-hero h1 span {
+  display: block;
+  color: #079783;
+}
+
+.ps-home-page .ps-home-access-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.ps-home-page .ps-home-access-card {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  white-space: normal;
+  line-height: 1.5;
+}
+
+.ps-home-page .ps-home-access-card span {
+  display: block;
+  white-space: normal;
+}
+
+.ps-home-page .ps-home-owner-button {
+  width: auto;
+  display: inline-flex;
+}
+
+@media (max-width: 600px) {
+  .ps-home-page .ps-home-access-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================
+   PETSPHERE - FINAL WELCOME PAGE POLISH
+========================================= */
+
+.ps-home-page .ps-home-header {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ps-home-page .ps-home-main {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ps-home-page .ps-home-hero {
+  width: 100%;
+  text-align: center;
+}
+
+.ps-home-page .ps-home-hero p {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ps-home-page .ps-home-access-heading {
+  text-align: center;
+}
+
+.ps-home-page .ps-home-access-card {
+  background: #ffffff;
+  color: #173d3a;
+  border: 1px solid #e2eeea;
+  box-shadow: 0 5px 18px rgba(20, 100, 85, 0.05);
+}
+
+.ps-home-page .ps-home-access-card:hover {
+  background: #ffffff;
+  border-color: #8acfc0;
+}
+
+.ps-home-page .ps-home-access-card .ps-home-card-title {
+  color: #173d3a;
+}
+
+.ps-home-page .ps-home-access-card .ps-home-card-description {
+  color: #718985;
+}
+
+.ps-home-page .ps-home-footer {
+  width: 100%;
+  margin-top: auto;
+  text-align: center;
+}
+
+
+/* =========================================
+   PETSPHERE - AUTHENTICATION PAGES
+========================================= */
+
+.ps-auth-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 35px 20px;
+  background: linear-gradient(145deg, #eaf8f4, #ffffff 55%, #f0f8f6);
+  box-sizing: border-box;
+}
+
+.ps-auth-page * {
+  box-sizing: border-box;
+}
+
+.ps-auth-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 38px;
+  background: #ffffff;
+  border: 1px solid #e3efeb;
+  border-radius: 22px;
+  box-shadow: 0 15px 45px rgba(24, 87, 76, 0.09);
+}
+
+.ps-auth-back {
+  display: block;
+  padding: 0;
+  margin-bottom: 28px;
+  background: transparent;
+  border: none;
+  color: #68847e;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ps-auth-logo {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 17px;
+  border-radius: 17px;
+  background: #e4f6f0;
+  font-size: 30px;
+}
+
+.ps-auth-card h1 {
+  margin: 0;
+  text-align: center;
+  color: #173d3a;
+  font-size: 29px;
+  font-weight: 800;
+}
+
+.ps-auth-subtitle {
+  margin: 10px 0 30px;
+  text-align: center;
+  color: #81938f;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.ps-auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ps-auth-form label {
+  margin-top: 8px;
+  color: #345650;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ps-auth-form input {
+  width: 100%;
+  min-width: 0;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid #dce9e5;
+  border-radius: 10px;
+  outline: none;
+  background: #fbfdfc;
+  color: #173d3a;
+  font-size: 14px;
+}
+
+.ps-auth-form input:focus {
+  border-color: #079783;
+  box-shadow: 0 0 0 3px rgba(7, 151, 131, 0.10);
+}
+
+.ps-auth-password-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ps-auth-password-wrap input {
+  padding-right: 65px;
+}
+
+.ps-auth-toggle {
+  position: absolute;
+  right: 10px;
+  padding: 6px;
+  background: transparent;
+  border: none;
+  color: #078b79;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ps-auth-form .ps-auth-submit {
+  width: 100%;
+  justify-content: center;
+  margin-top: 18px;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: #078b79;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.ps-auth-form .ps-auth-submit:hover {
+  background: #066f62;
+  transform: translateY(-1px);
+}
+
+.ps-auth-message {
+  margin: 15px 0 0;
+  text-align: center;
+  color: #c34d4d;
+  font-size: 13px;
+}
+
+.ps-auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 25px 0 17px;
+  color: #91a39e;
+  font-size: 12px;
+}
+
+.ps-auth-divider::before,
+.ps-auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e6efec;
+}
+
+.ps-auth-signup {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #b8ded4;
+  border-radius: 10px;
+  background: #f3fbf8;
+  color: #078b79;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ps-auth-signup:hover {
+  background: #e5f6f0;
+}
+
+.ps-auth-footer {
+  margin: 25px 0 0;
+  text-align: center;
+  color: #91a39e;
+  font-size: 12px;
+}
+
+@media (max-width: 480px) {
+  .ps-auth-card {
+    padding: 28px 22px;
+  }
+}
+
+/* Signup success and error feedback */
+
+.ps-auth-message {
+  padding: 12px 15px;
+  margin-top: 16px;
+  border-radius: 10px;
+  background: #e8f7ef;
+  color: #16794b;
+  border: 1px solid #b9e6ce;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+
+/* PETSPHERE - PUPPY AND KITTEN HERO IMAGE */
+
+.ps-home-page .ps-home-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  bottom: 0;
+  width: 48%;
+  height: 100%;
+
+  background-image: url("/petsphere-hero.png");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: auto 100%;
+  mix-blend-mode: multiply;
+border-radius: 28px;
+  
+
+  pointer-events: none;
+}
+
+@media (max-width: 760px) {
+  .ps-home-page .ps-home-hero::after {
+    width: 100%;
+    height: 48%;
+    background-position: right bottom;
+    background-size: auto 150%;
+    opacity: 0.35;
+  }
+}
+
+
+/* PETSPHERE - FIXED HERO LAYOUT */
+
+.ps-home-page .ps-home-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  align-items: center;
+  column-gap: 20px;
+  padding: 55px 55px;
+  overflow: hidden;
+}
+
+.ps-home-page .ps-home-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 43%;
+  z-index: 0;
+  background-image: url("/petsphere-hero.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  pointer-events: none;
+}
+
+/* Keep all actual hero content above the illustration */
+
+.ps-home-page .ps-home-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ps-home-page .ps-home-hero .ps-home-pill,
+.ps-home-page .ps-home-hero h1,
+.ps-home-page .ps-home-hero p,
+.ps-home-page .ps-home-hero .ps-home-owner-button {
+  grid-column: 1;
+}
+
+.ps-home-page .ps-home-hero h1 {
+  text-align: left;
+  font-size: clamp(34px, 4vw, 49px);
+}
+
+.ps-home-page .ps-home-hero h1 span {
+  display: block;
+}
+
+.ps-home-page .ps-home-hero p {
+  text-align: left;
+  max-width: 480px;
+}
+
+/* Mobile layout */
+
+@media (max-width: 760px) {
+  .ps-home-page .ps-home-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px 24px 240px;
+  }
+
+  .ps-home-page .ps-home-hero::after {
+    width: 100%;
+    height: 250px;
+    top: auto;
+    bottom: 0;
+    background-position: center bottom;
+  }
+
+  .ps-home-page .ps-home-hero h1 {
+    font-size: 34px;
+  }
+}

@@ -1,0 +1,464 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@500;600;700;800;900&display=swap');
+
+:root {
+  font-family: 'DM Sans', 'Segoe UI', sans-serif;
+  color: #244044;
+  background: #f5fbfa;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --ps-teal-900: #145b59;
+  --ps-teal-800: #16736e;
+  --ps-teal-700: #15958d;
+  --ps-teal-600: #22aaa0;
+  --ps-teal-100: #dff5f1;
+  --ps-teal-50: #effaf8;
+  --ps-ink: #244044;
+  --ps-muted: #718589;
+  --ps-line: #e2eeec;
+  --ps-surface: #ffffff;
+  --ps-page: #f5fbfa;
+  --ps-coral: #ff987f;
+  --ps-yellow: #ffd66e;
+  --ps-shadow: 0 12px 32px rgba(29, 104, 99, .08);
+}
+
+* { box-sizing: border-box; }
+
+html { min-width: 320px; min-height: 100%; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 8% 5%, rgba(213, 245, 238, .58), transparent 28rem),
+    var(--ps-page);
+  color: var(--ps-ink);
+  font-family: 'DM Sans', 'Segoe UI', sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+button, input, select, textarea { font: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+img { max-width: 100%; }
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+h1, h2, h3, h4 {
+  color: var(--ps-ink);
+  font-family: 'Nunito', 'DM Sans', sans-serif;
+  font-weight: 800;
+  letter-spacing: -.025em;
+}
+
+h1 { font-size: clamp(1.8rem, 3vw, 2.5rem); line-height: 1.15; }
+h2 { font-size: clamp(1.2rem, 2vw, 1.55rem); line-height: 1.25; }
+p { color: inherit; }
+
+:focus-visible {
+  outline: 3px solid rgba(34, 170, 160, .32);
+  outline-offset: 2px;
+}
+
+::selection { background: #c9eee8; color: #145b59; }
+
+
+/* ==========================================
+   PETSPHERE - PREMIUM HOMEPAGE REDESIGN
+========================================== */
+
+.ps-home-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(139, 224, 204, 0.23), transparent 28%),
+    radial-gradient(circle at 5% 85%, rgba(202, 239, 226, 0.45), transparent 30%),
+    #f5fbf8;
+  color: #183f3c;
+  font-family: 'Nunito', sans-serif;
+}
+
+/* Header */
+
+.ps-home-page .ps-home-header {
+  width: min(1200px, calc(100% - 64px));
+  min-height: 88px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(26, 103, 88, 0.09);
+}
+
+.ps-home-brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: #145b53;
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: -0.7px;
+}
+
+.ps-home-logo {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #dff5ed;
+  font-size: 23px;
+}
+
+.ps-home-tagline {
+  color: #718d86;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Main layout */
+
+.ps-home-page .ps-home-main {
+  width: min(1200px, calc(100% - 64px));
+  flex: 1;
+  margin: 0 auto;
+  padding: 55px 0 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 55px;
+}
+
+/* Hero section */
+
+.ps-home-page .ps-home-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 355px;
+  padding: 60px 65px;
+  border-radius: 30px;
+  background: linear-gradient(115deg, #e0f5ed 0%, #eaf8f3 55%, #d4f0e6 100%);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  box-shadow: 0 16px 45px rgba(34, 112, 91, 0.07);
+}
+
+.ps-home-page .ps-home-hero::after {
+  content: "🐕";
+  position: absolute;
+  z-index: -1;
+  right: 75px;
+  bottom: 5px;
+  font-size: clamp(145px, 20vw, 245px);
+  line-height: 1;
+  opacity: 0.92;
+  filter: drop-shadow(0 15px 15px rgba(40, 100, 80, 0.12));
+}
+
+.ps-home-page .ps-home-pill {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 9px 16px;
+  border: 1px solid rgba(17, 133, 108, 0.14);
+  border-radius: 30px;
+  background: rgba(255,255,255,0.75);
+  color: #168b77;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.ps-home-page .ps-home-hero h1 {
+  max-width: 650px;
+  margin: 23px 0 16px;
+  color: #193e3c;
+  font-size: clamp(36px, 4.5vw, 55px);
+  font-weight: 1000;
+  line-height: 1.12;
+  letter-spacing: -1.8px;
+  text-align: left;
+}
+
+.ps-home-page .ps-home-hero h1 span {
+  display: block;
+  color: #079783;
+}
+
+.ps-home-page .ps-home-hero p {
+  max-width: 510px;
+  margin: 0 0 25px;
+  color: #617f77;
+  font-size: 15px;
+  line-height: 1.8;
+  text-align: left;
+}
+
+.ps-home-page .ps-home-owner-button {
+  min-height: 49px;
+  padding: 0 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  border: none;
+  border-radius: 13px;
+  background: #079783;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(7, 151, 131, 0.2);
+  transition: 0.2s ease;
+}
+
+.ps-home-page .ps-home-owner-button:hover {
+  background: #087d70;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(7, 151, 131, 0.24);
+}
+
+/* Professional access */
+
+.ps-home-page .ps-home-access {
+  width: 100%;
+}
+
+.ps-home-page .ps-home-access-heading {
+  margin-bottom: 22px;
+  text-align: left;
+}
+
+.ps-home-page .ps-home-access-heading h2 {
+  margin: 0 0 7px;
+  color: #193e3c;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.ps-home-page .ps-home-access-heading p {
+  margin: 0;
+  color: #82968f;
+  font-size: 13px;
+}
+
+.ps-home-page .ps-home-access-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.ps-home-page .ps-home-access-card {
+  min-height: 160px;
+  width: 100%;
+  padding: 25px 27px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+  border: 1px solid #e0eee8;
+  border-radius: 20px;
+  background: #ffffff;
+  color: #193e3c;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(31, 101, 82, 0.045);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.ps-home-page .ps-home-access-card:hover {
+  transform: translateY(-5px);
+  border-color: #9bd8c8;
+  box-shadow: 0 16px 32px rgba(31, 101, 82, 0.10);
+}
+
+.ps-home-page .ps-home-card-icon {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: #e4f6ef;
+  font-size: 21px;
+}
+
+.ps-home-page .ps-home-card-title {
+  color: #193e3c;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.ps-home-page .ps-home-card-description {
+  color: #7b918a;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.ps-home-page .ps-home-card-link {
+  margin-top: 4px;
+  color: #078d7b;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+/* Footer */
+
+.ps-home-page .ps-home-footer {
+  width: min(1200px, calc(100% - 64px));
+  margin: 0 auto;
+  padding: 19px 0 24px;
+  border-top: 1px solid rgba(26, 103, 88, 0.09);
+  color: #82968f;
+  font-size: 12px;
+  text-align: center;
+}
+
+/* Responsive layout */
+
+@media (max-width: 760px) {
+  .ps-home-page .ps-home-header {
+    width: calc(100% - 36px);
+    min-height: 75px;
+  }
+
+  .ps-home-page .ps-home-main {
+    width: calc(100% - 36px);
+    padding: 30px 0;
+    gap: 35px;
+  }
+
+  .ps-home-page .ps-home-hero {
+    min-height: 390px;
+    padding: 35px 25px;
+  }
+
+  .ps-home-page .ps-home-hero::after {
+    right: 10px;
+    bottom: 0;
+    font-size: 125px;
+    opacity: 0.25;
+  }
+
+  .ps-home-page .ps-home-hero h1 {
+    font-size: 37px;
+  }
+
+  .ps-home-page .ps-home-access-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-home-page .ps-home-footer {
+    width: calc(100% - 36px);
+  }
+}
+
+@media (max-width: 420px) {
+  .ps-home-tagline {
+    font-size: 11px;
+  }
+
+  .ps-home-brand {
+    font-size: 21px;
+  }
+
+  .ps-home-page .ps-home-hero h1 {
+    font-size: 32px;
+  }
+}
+
+
+/* ==========================================
+   PETSPHERE - CUTE PASTEL BACKGROUND
+========================================== */
+
+.ps-home-page {
+  background:
+    radial-gradient(ellipse at 8% 18%, rgba(255, 220, 226, 0.42), transparent 25%),
+    radial-gradient(ellipse at 92% 12%, rgba(255, 238, 190, 0.40), transparent 24%),
+    radial-gradient(ellipse at 88% 78%, rgba(197, 235, 220, 0.50), transparent 28%),
+    radial-gradient(ellipse at 8% 85%, rgba(218, 211, 255, 0.30), transparent 25%),
+    #f7fcf9;
+  position: relative;
+  isolation: isolate;
+}
+
+/* Floating paw-print decorations */
+
+.ps-home-page::before {
+  content: "🐾";
+  position: absolute;
+  top: 190px;
+  right: 5%;
+  font-size: 65px;
+  opacity: 0.10;
+  transform: rotate(22deg);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.ps-home-page::after {
+  content: "🐾";
+  position: absolute;
+  bottom: 95px;
+  left: 4%;
+  font-size: 75px;
+  opacity: 0.09;
+  transform: rotate(-20deg);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Softer, dreamier hero background */
+
+.ps-home-page .ps-home-hero {
+  background:
+    radial-gradient(circle at 85% 20%, rgba(255, 255, 255, 0.55), transparent 30%),
+    linear-gradient(120deg, #e5f7ef, #eaf7fb 55%, #f9f0f6);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 18px 45px rgba(74, 139, 119, 0.09);
+}
+
+/* Cute pastel cards */
+
+.ps-home-page .ps-home-access-card:nth-child(1) {
+  background: linear-gradient(135deg, #ffffff, #f0faf6);
+}
+
+.ps-home-page .ps-home-access-card:nth-child(2) {
+  background: linear-gradient(135deg, #ffffff, #f8f3fc);
+}
+
+.ps-home-page .ps-home-access-card {
+  border-color: rgba(191, 222, 211, 0.75);
+}
+
+/* Small screen decoration adjustment */
+
+@media (max-width: 760px) {
+  .ps-home-page::before {
+    right: 2%;
+    top: 150px;
+    font-size: 42px;
+  }
+
+  .ps-home-page::after {
+    left: 2%;
+    font-size: 48px;
+  }
+}

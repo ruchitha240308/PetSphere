@@ -1,0 +1,26 @@
+# Secrets
+.env
+.env.*
+!.env.example
+Backend/.env
+Frontend/.env
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+
+# Uploaded documents
+Backend/uploads/
+
+# Frontend
+node_modules/
+dist/
+
+# Archives
+*.zip
+
+# OS files
+.DS_Store
+Thumbs.db
